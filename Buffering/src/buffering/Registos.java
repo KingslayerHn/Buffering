@@ -1,24 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Lesterarte
- */
-public class Persona {
+package buffering;
+
+
+public class Registos {
     
     private String Nombre;
-    private String Apellido;
+    private String Apellido; 
     private String Identidad; 
     private String Direccion; 
     private String Telefono; 
     private String Genero; 
-    private String Raza;
+    private String Raza; 
+    private boolean Eliminado; 
 
-    public Persona(String Nombre, String Apellido, String Identidad, String Direccion, String Telefono, String Genero, String Raza) {
+    public Registos(String Nombre, String Apellido, String Identidad, String Direccion, String Telefono, String Genero, String Raza, boolean Eliminado) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.Identidad = Identidad;
@@ -26,6 +21,7 @@ public class Persona {
         this.Telefono = Telefono;
         this.Genero = Genero;
         this.Raza = Raza;
+        this.Eliminado = Eliminado;
     }
 
     public String getNombre() {
@@ -82,6 +78,14 @@ public class Persona {
 
     public void setRaza(String Raza) {
         this.Raza = Raza;
+    }
+
+    public boolean isEliminado() {
+        return Eliminado;
+    }
+
+    public void setEliminado(boolean Eliminado) {
+        this.Eliminado = Eliminado;
     }
     
     
