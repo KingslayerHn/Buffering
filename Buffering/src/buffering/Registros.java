@@ -2,7 +2,7 @@
 package buffering;
 
 
-public class Registos {
+public class Registros {
     
     private String Nombre;
     private String Apellido; 
@@ -13,7 +13,8 @@ public class Registos {
     private String Raza; 
     private boolean Eliminado; 
 
-    public Registos(String Nombre, String Apellido, String Identidad, String Direccion, String Telefono, String Genero, String Raza, boolean Eliminado) {
+    public Registros(String Nombre, String Apellido, String Identidad,
+            String Direccion, String Telefono, String Genero, String Raza, boolean Eliminado) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.Identidad = Identidad;
