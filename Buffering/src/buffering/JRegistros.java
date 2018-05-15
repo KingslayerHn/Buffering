@@ -594,17 +594,17 @@ public class JRegistros extends javax.swing.JFrame {
     
     public void CargarArchivo(){
         try {
+            int size = 5;
             fr = new FileReader("Registros.txt");
-            br = new BufferedReader(fr);
-            System.out.println(br.readLine());
-            String cadena = Character.toString((char)br.read());
-            int temp=0;
-            while(temp != -1){
-                
-                cadena+=Character.toString((char)temp);
-                temp = br.read();
-                
+            br = new BufferedReader(fr,10);
+            String cadenaLeida=br.readLine();
+            while(br.ready()){
+                 System.out.println(cadenaLeida);
+                 cadenaLeida = br.readLine();
             }
+            //String cadenaLeida = br.readLine();
+           
+            //String[] cadenaCampos = cadenaLeida.split("\\|");
             br.close();
             fr.close();
         } catch (IOException ex) {
