@@ -316,11 +316,12 @@ public class JRegistros extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -536,8 +537,7 @@ public class JRegistros extends javax.swing.JFrame {
             guardarRegistro = txtNombre.getText()+"|"+txtApellido.getText()+"|"+
                     txtIdentidad.getText()+"|"+txtDireccion.getText()+"|"+
                     txtTelefono.getText()+"|"+ (String)cmbGenero.getSelectedItem()+
-                    "|"+(String)cmbRaza.getSelectedItem()+"|"+"false"+"&";
-            System.out.println(guardarRegistro);
+                    "|"+(String)cmbRaza.getSelectedItem()+"|"+"false"+"\n";
             fw = new FileWriter("Registros.txt",true);
             fw.write(guardarRegistro);
             fw.close();
@@ -596,17 +596,17 @@ public class JRegistros extends javax.swing.JFrame {
         try {
             fr = new FileReader("Registros.txt");
             br = new BufferedReader(fr);
+            System.out.println(br.readLine());
             String cadena = Character.toString((char)br.read());
             int temp=0;
             while(temp != -1){
                 
                 cadena+=Character.toString((char)temp);
                 temp = br.read();
+                
             }
-            System.out.println(cadena);
             br.close();
             fr.close();
-            
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null,"Error al leer el archivo!!!");
         }
