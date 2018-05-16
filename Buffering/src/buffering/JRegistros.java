@@ -20,21 +20,22 @@ import javax.swing.JOptionPane;
  *
  * @author Lesterarte
  */
-public class JRegistros extends javax.swing.JFrame {
+public final class JRegistros extends javax.swing.JFrame {
     
     ArrayList<Registros> listaRegistros = new ArrayList();
 
 
-    final int rangoBuffer=10;
+    final int rangoBuffer=5;
 
     
 
     /**
      * Creates new form JRegistros
      */
-    public JRegistros() {
+    public JRegistros() throws IOException {
         initComponents();
         this.setLocationRelativeTo(this);
+        abrirBuffered();
         leerBuffer();
         if(listaRegistros.isEmpty()){
             btnBorrar.setEnabled(false);
@@ -395,6 +396,12 @@ public class JRegistros extends javax.swing.JFrame {
         btnAgregar.setEnabled(false);
         btnPrevious.setEnabled(false);
         btnNext.setEnabled(false);
+        try {
+            leerBuffer();
+        } catch (IOException ex) {
+            Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -590,32 +597,30 @@ public class JRegistros extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JRegistros().setVisible(true);
+                try {
+                    new JRegistros().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
         });
+        
     }
-    
-    public void leerBuffer(){
-        try {
-
-
-            int contador = 0;
-            br = new BufferedReader(new FileReader("Registros.txt"));
-            String cadenaLeida = br.readLine();
-
-            while(br.ready()){
-
-                 System.out.println(cadenaLeida);
-                 cadenaLeida = br.readLine();
-            }
-          
-            //String[] cadenaCampos = cadenaLeida.split("\\|");
-            br.close();
-            fr.close();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Error al leer el archivo!!!");
+    public void abrirBuffered() throws IOException{
+        br = new BufferedReader(new FileReader("Registros.txt"));
+    }
+    public void cerrarBuffer() throws IOException{
+        br.close();
+    }
+    public void leerBuffer() throws IOException{
+        int contador=0;
+        String cadenaLeida="";
+        while(br.ready() && contador!=rangoBuffer){
+            cadenaLeida+= br.readLine()+"\n";
+            contador++;
         }
+        System.out.println(cadenaLeida); 
     }
     public void resetCamposTexto(){
         txtNombre.setText("");
@@ -655,5 +660,4 @@ public class JRegistros extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private BufferedReader br; 
     private FileWriter fw;
-    private FileReader fr;
 }
