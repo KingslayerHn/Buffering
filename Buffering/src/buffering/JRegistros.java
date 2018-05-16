@@ -23,11 +23,9 @@ import javax.swing.JOptionPane;
 public class JRegistros extends javax.swing.JFrame {
     
     ArrayList<Registros> listaRegistros = new ArrayList();
-<<<<<<< HEAD
+
     final int rangoBuffer=10;
-=======
-    final int bufferSize = 10;
->>>>>>> ab9be4f020e9995b85b0d187bd06b8339a2dcaec
+
     
 
     /**
@@ -599,18 +597,13 @@ public class JRegistros extends javax.swing.JFrame {
     
     public void leerBuffer(){
         try {
-<<<<<<< HEAD
+
             int contador = 0;
             br = new BufferedReader(new FileReader("Registros.txt"));
             String cadenaLeida = br.readLine();
-            while(br.ready() && !(contador==rangoBuffer)){
-=======
-            
-            fr = new FileReader("Registros.txt");
-            br = new BufferedReader(fr);
-            String cadenaLeida=br.readLine();
+
             while(br.ready()){
->>>>>>> ab9be4f020e9995b85b0d187bd06b8339a2dcaec
+
                  System.out.println(cadenaLeida);
                  cadenaLeida = br.readLine();
             }
