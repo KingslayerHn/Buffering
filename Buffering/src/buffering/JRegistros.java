@@ -7,10 +7,10 @@ package buffering;
 
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,8 +23,7 @@ import javax.swing.JOptionPane;
 public final class JRegistros extends javax.swing.JFrame {
     
     ArrayList<Registros> listaRegistros = new ArrayList();
-    final int rangoBuffer=5;
-
+    final String nombreArchivo="Registros.txt";
     
 
     /**
@@ -33,12 +32,12 @@ public final class JRegistros extends javax.swing.JFrame {
     public JRegistros() throws IOException {
         initComponents();
         this.setLocationRelativeTo(this);
-        abrirBuffered();
-        leerBuffer();
         if(listaRegistros.isEmpty()){
             btnBorrar.setEnabled(false);
         }
-        mostrarPantalla(index);  
+        String  dato = new String(leerBuffer(nombreArchivo, postLectura, sizeLectura));
+        System.out.println(dato);
+         
     }
 
     /**
@@ -602,25 +601,14 @@ public final class JRegistros extends javax.swing.JFrame {
         });
         
     }
-    public void abrirBuffered() throws IOException{
-        br = new BufferedReader(new FileReader("Registros.txt"));
-    }
-    public void cerrarBuffer() throws IOException{
-        br.close();
-    }
-    public void leerBuffer() throws IOException{
-        int contador=0;
-        while( (cadenaLeida = br.readLine())!= null && contador<rangoBuffer){
-            String[] arregloCadenaLeida = cadenaLeida.split("\\|");
-            listaRegistros.add(new Registros(arregloCadenaLeida[0],
-            arregloCadenaLeida[1],arregloCadenaLeida[2],arregloCadenaLeida[3],
-            arregloCadenaLeida[4],arregloCadenaLeida[5],arregloCadenaLeida[6],
-            Boolean.valueOf(arregloCadenaLeida[7])));
-            contador++;
-           
-        }
-        
-         
+   
+    public byte[] leerBuffer(String file, int post, int size) throws IOException{
+        RandomAccessFile  archivo = new RandomAccessFile(file,"r");
+        archivo.seek(post);
+        byte[] aLeer = new byte[size];
+        archivo.read(aLeer);
+        archivo.close();
+        return aLeer;           
     }
     public void mostrarPantalla(int index){
        
@@ -668,8 +656,8 @@ public final class JRegistros extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
-    private BufferedReader br; 
+   
     private FileWriter fw;
-    private int index=0;
-    private String cadenaLeida="";
+    private int postLectura=0;
+    private int sizeLectura=200;
 }
