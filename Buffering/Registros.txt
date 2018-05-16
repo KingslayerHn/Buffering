@@ -1,7 +1,7 @@
-﻿linea 1
-linea 2
-linea 3
-linea 4
-linea 5
-linea 6
-linea 7
+jose|hernesto|08011214|lasuvas|234234|masculino|criollo|false
+laura|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false
+maria|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false
+ricaro|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false
+delmis|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false
+lester|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false
+andrea|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false

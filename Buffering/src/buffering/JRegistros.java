@@ -23,8 +23,6 @@ import javax.swing.JOptionPane;
 public final class JRegistros extends javax.swing.JFrame {
     
     ArrayList<Registros> listaRegistros = new ArrayList();
-
-
     final int rangoBuffer=5;
 
     
@@ -40,7 +38,7 @@ public final class JRegistros extends javax.swing.JFrame {
         if(listaRegistros.isEmpty()){
             btnBorrar.setEnabled(false);
         }
-        
+        mostrarPantalla(index);  
     }
 
     /**
@@ -391,26 +389,40 @@ public final class JRegistros extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdentidadActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        resetCamposTexto();
         txtNombre.setEnabled(true);
         txtNombre.requestFocus();
         btnAgregar.setEnabled(false);
         btnPrevious.setEnabled(false);
         btnNext.setEnabled(false);
-        try {
-            leerBuffer();
-        } catch (IOException ex) {
-            Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        // TODO add your handling code here:
+        index--;
+        mostrarPantalla(index);
     }//GEN-LAST:event_btnPreviousActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        // TODO add your handling code here:
+        index++;
+        if((index+1)>listaRegistros.size()){
+            listaRegistros.clear();
+            index=0;
+            try {
+                leerBuffer();
+            } catch (IOException ex) {
+                Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(listaRegistros.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Ultimo Registro");
+            }else{
+                mostrarPantalla(index);
+            }  
+        }else{
+            mostrarPantalla(index);
+        }      
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void cmbRazaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRazaActionPerformed
@@ -615,12 +627,28 @@ public final class JRegistros extends javax.swing.JFrame {
     }
     public void leerBuffer() throws IOException{
         int contador=0;
-        String cadenaLeida="";
-        while(br.ready() && contador!=rangoBuffer){
-            cadenaLeida+= br.readLine()+"\n";
+        while( (cadenaLeida = br.readLine())!= null && contador<rangoBuffer){
+            String[] arregloCadenaLeida = cadenaLeida.split("\\|");
+            listaRegistros.add(new Registros(arregloCadenaLeida[0],
+            arregloCadenaLeida[1],arregloCadenaLeida[2],arregloCadenaLeida[3],
+            arregloCadenaLeida[4],arregloCadenaLeida[5],arregloCadenaLeida[6],
+            Boolean.valueOf(arregloCadenaLeida[7])));
             contador++;
+           
         }
-        System.out.println(cadenaLeida); 
+        
+         
+    }
+    public void mostrarPantalla(int index){
+       
+        txtNombre.setText(listaRegistros.get(index).getNombre());
+        txtApellido.setText(listaRegistros.get(index).getApellido());
+        txtIdentidad.setText(listaRegistros.get(index).getIdentidad());
+        txtDireccion.setText(listaRegistros.get(index).getDireccion());
+        txtTelefono.setText(listaRegistros.get(index).getTelefono());
+        cmbGenero.setSelectedItem(listaRegistros.get(index).getGenero());
+        cmbRaza.setSelectedItem(listaRegistros.get(index).getRaza());     
+        
     }
     public void resetCamposTexto(){
         txtNombre.setText("");
@@ -629,8 +657,7 @@ public final class JRegistros extends javax.swing.JFrame {
         txtTelefono.setText("");
         txtIdentidad.setText("");
         cmbGenero.setSelectedIndex(0);
-        cmbRaza.setSelectedIndex(0);
-        
+        cmbRaza.setSelectedIndex(0);  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -660,4 +687,6 @@ public final class JRegistros extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private BufferedReader br; 
     private FileWriter fw;
+    private int index=0;
+    private String cadenaLeida="";
 }
