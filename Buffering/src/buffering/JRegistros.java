@@ -23,6 +23,11 @@ import javax.swing.JOptionPane;
 public class JRegistros extends javax.swing.JFrame {
     
     ArrayList<Registros> listaRegistros = new ArrayList();
+<<<<<<< HEAD
+    final int rangoBuffer=10;
+=======
+    final int bufferSize = 10;
+>>>>>>> ab9be4f020e9995b85b0d187bd06b8339a2dcaec
     
 
     /**
@@ -31,8 +36,8 @@ public class JRegistros extends javax.swing.JFrame {
     public JRegistros() {
         initComponents();
         this.setLocationRelativeTo(this);
-        CargarArchivo();
-        if(listaRegistros.size() == 0){
+        leerBuffer();
+        if(listaRegistros.isEmpty()){
             btnBorrar.setEnabled(false);
         }
         
@@ -592,18 +597,24 @@ public class JRegistros extends javax.swing.JFrame {
         });
     }
     
-    public void CargarArchivo(){
+    public void leerBuffer(){
         try {
-            int size = 5;
+<<<<<<< HEAD
+            int contador = 0;
+            br = new BufferedReader(new FileReader("Registros.txt"));
+            String cadenaLeida = br.readLine();
+            while(br.ready() && !(contador==rangoBuffer)){
+=======
+            
             fr = new FileReader("Registros.txt");
-            br = new BufferedReader(fr,10);
+            br = new BufferedReader(fr);
             String cadenaLeida=br.readLine();
             while(br.ready()){
+>>>>>>> ab9be4f020e9995b85b0d187bd06b8339a2dcaec
                  System.out.println(cadenaLeida);
                  cadenaLeida = br.readLine();
             }
-            //String cadenaLeida = br.readLine();
-           
+          
             //String[] cadenaCampos = cadenaLeida.split("\\|");
             br.close();
             fr.close();

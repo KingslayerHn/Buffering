@@ -1,8 +1,12 @@
-﻿jose|edgardo|0801-1989-19332|La cañada|3145-4534|Masculino|Meztizo|false
-otaku|picachu|08012893124|el zapote norte|31111248|Masculino|Meztizo|false
-otaku|picachu|08012893124|el zapote norte|31111248|Masculino|Meztizo|false
-otaku|picachu|08012893124|el zapote norte|31111248|Masculino|Meztizo|false
-otaku|picachu|08012893124|el zapote norte|31111248|Masculino|Meztizo|false
-jose|edgardo|0801-1989-19332|La cañada|3145-4534|Masculino|Meztizo|false
-jose|edgardo|0801-1989-19332|La cañada|3145-4534|Masculino|Meztizo|false
-jose|edgardo|0801-1989-19332|La cañada|3145-4534|Masculino|Meztizo|false
+﻿linea 1
+linea 2 
+linea 3
+linea 4
+linea 5
+linea 6
+linea 7
+linea 8
+linea 9
+
+
+
