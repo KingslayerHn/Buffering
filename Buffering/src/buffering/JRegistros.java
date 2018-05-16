@@ -24,6 +24,7 @@ public class JRegistros extends javax.swing.JFrame {
     
     ArrayList<Registros> listaRegistros = new ArrayList();
 
+
     final int rangoBuffer=10;
 
     
@@ -597,6 +598,7 @@ public class JRegistros extends javax.swing.JFrame {
     
     public void leerBuffer(){
         try {
+
 
             int contador = 0;
             br = new BufferedReader(new FileReader("Registros.txt"));
