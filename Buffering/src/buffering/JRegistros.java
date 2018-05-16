@@ -401,28 +401,11 @@ public final class JRegistros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        index--;
-        mostrarPantalla(index);
+        
     }//GEN-LAST:event_btnPreviousActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        index++;
-        if((index+1)>listaRegistros.size()){
-            listaRegistros.clear();
-            index=0;
-            try {
-                leerBuffer();
-            } catch (IOException ex) {
-                Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if(listaRegistros.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Ultimo Registro");
-            }else{
-                mostrarPantalla(index);
-            }  
-        }else{
-            mostrarPantalla(index);
-        }      
+        
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void cmbRazaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRazaActionPerformed
