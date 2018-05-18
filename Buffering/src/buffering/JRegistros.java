@@ -6,8 +6,6 @@
 package buffering;
 
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -36,8 +34,26 @@ public final class JRegistros extends javax.swing.JFrame {
             btnBorrar.setEnabled(false);
         }
         String  dato = new String(leerBuffer(nombreArchivo, postLectura, sizeLectura));
-        System.out.println(dato);
+        CargarArchivoEstructura(dato);
+        mostrarPantalla(index);
          
+    }
+   
+    public void CargarArchivoEstructura(String linea){
+        String [] registrosSeparados = linea.split("\\\n");
+        postLectura = sizeLectura-registrosSeparados[registrosSeparados.length-1].length()-
+                registrosSeparados.length-1;
+        System.out.println(registrosSeparados[registrosSeparados.length-1]);
+        System.out.println(registrosSeparados[registrosSeparados.length-1].length());
+        System.out.println(postLectura);
+         
+        for (int i = 0; i < registrosSeparados.length-1; i++) {
+            String [] camposSeperados = registrosSeparados[i].split("\\|");
+            
+            listaRegistros.add(new Registros(camposSeperados[0],camposSeperados[1],camposSeperados[2],
+                    camposSeperados[3],camposSeperados[4],camposSeperados[5],camposSeperados[6],
+                    Boolean.valueOf(camposSeperados[7])));
+        }      
     }
 
     /**
@@ -404,6 +420,26 @@ public final class JRegistros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPreviousActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        index++;
+        
+        if (index>=listaRegistros.size()) {
+            try {
+                String dato = new String(leerBuffer(nombreArchivo, postLectura, sizeLectura));
+                listaRegistros.clear();
+                CargarArchivoEstructura(dato);
+                index=0;
+                if(listaRegistros.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Ultimo Registro");                    
+                }else{
+                    mostrarPantalla(index);                    
+                }
+                
+            } catch (IOException ex) {
+                Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            mostrarPantalla(index);            
+        }
         
     }//GEN-LAST:event_btnNextActionPerformed
 
@@ -660,4 +696,5 @@ public final class JRegistros extends javax.swing.JFrame {
     private FileWriter fw;
     private int postLectura=0;
     private int sizeLectura=200;
+    public int index=0;
 }
