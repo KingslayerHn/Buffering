@@ -6,5 +6,4 @@ delmis|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false
 lester|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false
 andrea|daniela|sandobal|cordoba|3112345|Femenino|Meztizo|false
 juancito|escobar|234342|23423|32424332|Femenino|Meztizo|false
-jorge|alexander|08018298|las casitas|23456764|Masculino|Meztizo|false
-sofia del carmen|alvarado|129387438|el reparto por abajo|12451454|Masculino|Mulato|false
+

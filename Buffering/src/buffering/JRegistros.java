@@ -115,6 +115,11 @@ public final class JRegistros extends javax.swing.JFrame {
         jLabel3.setText("Borrar");
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buffering/img/Borrar.png"))); // NOI18N
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Nombre:");
@@ -439,6 +444,7 @@ public final class JRegistros extends javax.swing.JFrame {
         btnPrevious.setEnabled(false);
         btnNext.setEnabled(false);
         btnGuardar.setEnabled(true);
+        btnBorrar.setEnabled(false);
   
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -659,6 +665,25 @@ public final class JRegistros extends javax.swing.JFrame {
     private void btnAvailListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvailListActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAvailListActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        btnAgregar.setEnabled(false);
+        btnNext.setEnabled(false);
+        btnPrevious.setEnabled(false);
+        btnBorrar.setEnabled(false);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar"
+                + "el Registro?","ELIMINAR REGISTRO!!!!",
+                JOptionPane.YES_NO_OPTION);
+        if(opcion==0){
+            
+        }else{
+            btnAgregar.setEnabled(true);
+            btnNext.setEnabled(true);
+            btnPrevious.setEnabled(true);
+            btnBorrar.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
     /**
      * @param args the command line arguments
