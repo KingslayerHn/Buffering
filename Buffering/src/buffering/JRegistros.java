@@ -33,27 +33,25 @@ public final class JRegistros extends javax.swing.JFrame {
         if(listaRegistros.isEmpty()){
             btnBorrar.setEnabled(false);
         }
-        String  dato = new String(leerBuffer(nombreArchivo, postLectura, sizeLectura));
+        String  dato = new String(leerBuffer(nombreArchivo, postLectura,
+                sizeLectura));
         CargarArchivoEstructura(dato);
         mostrarPantalla(index);
          
     }
    
     public void CargarArchivoEstructura(String linea){
+   
         String [] registrosSeparados = linea.split("\\\n");
-        postLectura = sizeLectura-registrosSeparados[registrosSeparados.length-1].length()-
-                registrosSeparados.length-1;
-        System.out.println(registrosSeparados[registrosSeparados.length-1]);
-        System.out.println(registrosSeparados[registrosSeparados.length-1].length());
-        System.out.println(postLectura);
-         
+        System.out.println(linea);
+        postLectura += linea.length()- 
+                registrosSeparados[registrosSeparados.length-1].length();        
         for (int i = 0; i < registrosSeparados.length-1; i++) {
             String [] camposSeperados = registrosSeparados[i].split("\\|");
-            
             listaRegistros.add(new Registros(camposSeperados[0],camposSeperados[1],camposSeperados[2],
                     camposSeperados[3],camposSeperados[4],camposSeperados[5],camposSeperados[6],
                     Boolean.valueOf(camposSeperados[7])));
-        }      
+        }
     }
 
     /**
@@ -420,8 +418,7 @@ public final class JRegistros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPreviousActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        index++;
-        
+        index++;        
         if (index>=listaRegistros.size()) {
             try {
                 String dato = new String(leerBuffer(nombreArchivo, postLectura, sizeLectura));
