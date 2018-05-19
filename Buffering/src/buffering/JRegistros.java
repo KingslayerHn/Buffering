@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,7 +23,7 @@ public final class JRegistros extends javax.swing.JFrame {
     
     ArrayList<Registros> listaRegistros = new ArrayList();
     final String nombreArchivo="Registros.txt";
-    
+    Stack<Integer> pilaBuffer  = new Stack<>();     
 
     /**
      * Creates new form JRegistros
@@ -33,24 +34,30 @@ public final class JRegistros extends javax.swing.JFrame {
         if(listaRegistros.isEmpty()){
             btnBorrar.setEnabled(false);
         }
+        pilaBuffer.push(postLectura);
         String  dato = new String(leerBuffer(nombreArchivo, postLectura,
                 sizeLectura));
         CargarArchivoEstructura(dato);
         mostrarPantalla(index);
+        btnGuardar.setEnabled(false);
+        btnBorrar.setEnabled(true);
          
     }
    
     public void CargarArchivoEstructura(String linea){
    
         String [] registrosSeparados = linea.split("\\\n");
-        System.out.println(linea);
         postLectura += linea.length()- 
                 registrosSeparados[registrosSeparados.length-1].length();        
-        for (int i = 0; i < registrosSeparados.length-1; i++) {
+        for (int i = 0; i < registrosSeparados.length; i++) {
             String [] camposSeperados = registrosSeparados[i].split("\\|");
-            listaRegistros.add(new Registros(camposSeperados[0],camposSeperados[1],camposSeperados[2],
+            if(camposSeperados.length == 8){
+                listaRegistros.add(new Registros(camposSeperados[0],camposSeperados[1],camposSeperados[2],
                     camposSeperados[3],camposSeperados[4],camposSeperados[5],camposSeperados[6],
                     Boolean.valueOf(camposSeperados[7])));
+                
+            }
+            
         }
     }
 
@@ -86,6 +93,8 @@ public final class JRegistros extends javax.swing.JFrame {
         cmbRaza = new javax.swing.JComboBox<>();
         btnPrevious = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
+        btnAvailList = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -262,6 +271,17 @@ public final class JRegistros extends javax.swing.JFrame {
             }
         });
 
+        btnAvailList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buffering/img/save.png"))); // NOI18N
+        btnAvailList.setEnabled(false);
+        btnAvailList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvailListActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setText("Avail List");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,6 +297,12 @@ public final class JRegistros extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnNext)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAvailList, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel12)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -361,9 +387,13 @@ public final class JRegistros extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 29, Short.MAX_VALUE)
-                                        .addComponent(btnGuardar)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnGuardar)
+                                            .addComponent(btnAvailList))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel6))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel12)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(cmbRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -408,40 +438,72 @@ public final class JRegistros extends javax.swing.JFrame {
         btnAgregar.setEnabled(false);
         btnPrevious.setEnabled(false);
         btnNext.setEnabled(false);
-        
-        
-        
+        btnGuardar.setEnabled(true);
+  
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        
-    }//GEN-LAST:event_btnPreviousActionPerformed
-
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        index++;        
-        if (index>=listaRegistros.size()) {
+        index--; 
+        if(index<inicio && pilaBuffer.peek() ==0){
+           JOptionPane.showMessageDialog(null, "Primer Registro");
+           btnPrevious.setEnabled(false);
+           index=0;
+        }else if(index<0){
+            if(pilaBuffer.isEmpty()){
+                postLectura=0;
+            }else{
+                pilaBuffer.pop();
+                postLectura=pilaBuffer.peek();    
+            }
+            String dato;
             try {
-                String dato = new String(leerBuffer(nombreArchivo, postLectura, sizeLectura));
+                dato = new String(leerBuffer(nombreArchivo, postLectura, sizeLectura));
                 listaRegistros.clear();
                 CargarArchivoEstructura(dato);
-                index=0;
                 if(listaRegistros.isEmpty()){
                     JOptionPane.showMessageDialog(null, "Ultimo Registro");                    
                 }else{
+                    index=listaRegistros.size()-1;
                     mostrarPantalla(index);                    
                 }
                 
             } catch (IOException ex) {
                 Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        else{
+            mostrarPantalla(index);                        
+        }
+        btnNext.setEnabled(true);
+    }//GEN-LAST:event_btnPreviousActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        index++;        
+        if (index>=listaRegistros.size() ) {
+            try {
+                pilaBuffer.push(postLectura);                
+                String dato = new String(leerBuffer(nombreArchivo, postLectura, sizeLectura));
+                listaRegistros.clear();
+                CargarArchivoEstructura(dato);
+                index=0;
+                if(listaRegistros.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Ultimo Registro");
+                    btnNext.setEnabled(false);
+                }else{
+                    
+                    mostrarPantalla(index);                    
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             mostrarPantalla(index);            
         }
-        
+        btnPrevious.setEnabled(true);
+       
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void cmbRazaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRazaActionPerformed
-        btnGuardar.setEnabled(true);
         txtNombre.setEnabled(false);
         txtApellido.setEnabled(false);
         txtDireccion.setEnabled(false);
@@ -594,6 +656,10 @@ public final class JRegistros extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnAvailListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvailListActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAvailListActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -666,6 +732,7 @@ public final class JRegistros extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAvailList;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNext;
@@ -675,6 +742,7 @@ public final class JRegistros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -694,4 +762,5 @@ public final class JRegistros extends javax.swing.JFrame {
     private int postLectura=0;
     private int sizeLectura=200;
     public int index=0;
+    public int inicio=0;
 }
