@@ -52,7 +52,7 @@ public final class JRegistros extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtableAvailList = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
@@ -81,7 +81,7 @@ public final class JRegistros extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("Lista de posiciones en el archivo disponibles");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtableAvailList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -89,7 +89,7 @@ public final class JRegistros extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Posición", "Tamaño (Bytes)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -100,7 +100,7 @@ public final class JRegistros extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jtableAvailList);
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -630,7 +630,10 @@ public final class JRegistros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btn_availListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_availListActionPerformed
-        
+        jDialog1.pack();
+        jDialog1.setModal(true);
+        jDialog1.setLocationRelativeTo(this);
+        jDialog1.setVisible(true);
     }//GEN-LAST:event_btn_availListActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -706,6 +709,11 @@ public final class JRegistros extends javax.swing.JFrame {
         cmbGenero.setSelectedIndex(0);
         cmbRaza.setSelectedIndex(0);  
     }
+    
+    public int posFinalRegistro(){
+        
+        return 0;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -730,7 +738,7 @@ public final class JRegistros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtableAvailList;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtIdentidad;
