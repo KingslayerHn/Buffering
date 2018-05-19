@@ -276,7 +276,7 @@ public final class JRegistros extends javax.swing.JFrame {
             }
         });
 
-        btnAvailList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buffering/img/save.png"))); // NOI18N
+        btnAvailList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buffering/img/AvailList.png"))); // NOI18N
         btnAvailList.setEnabled(false);
         btnAvailList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -658,7 +658,7 @@ public final class JRegistros extends javax.swing.JFrame {
        btnGuardar.setEnabled(false);
        btnPrevious.setEnabled(true);
        btnNext.setEnabled(true);
-       resetCamposTexto();
+       mostrarPantalla(index);
        
     }//GEN-LAST:event_btnGuardarActionPerformed
 

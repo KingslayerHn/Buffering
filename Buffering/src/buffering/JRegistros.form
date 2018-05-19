@@ -421,7 +421,7 @@
     <Component class="javax.swing.JButton" name="btnAvailList">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/buffering/img/save.png"/>
+          <Image iconType="3" name="/buffering/img/AvailList.png"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
