@@ -112,7 +112,7 @@ public final class JRegistros extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Borrar");
+        jLabel3.setText("Eliminar");
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buffering/img/Borrar.png"))); // NOI18N
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -675,7 +675,7 @@ public final class JRegistros extends javax.swing.JFrame {
                 + "el Registro?","ELIMINAR REGISTRO!!!!",
                 JOptionPane.YES_NO_OPTION);
         if(opcion==0){
-            
+            listaRegistros.get(index).setEliminado(true);
         }else{
             btnAgregar.setEnabled(true);
             btnNext.setEnabled(true);
@@ -725,6 +725,7 @@ public final class JRegistros extends javax.swing.JFrame {
         });
         
     }
+    
    
     public byte[] leerBuffer(String file, int post, int size) throws IOException{
         RandomAccessFile  archivo = new RandomAccessFile(file,"r");
@@ -788,4 +789,6 @@ public final class JRegistros extends javax.swing.JFrame {
     private int sizeLectura=200;
     public int index=0;
     public int inicio=0;
+    public int referenciaInicio=0;
+    public int referenciaFinal =0;
 }

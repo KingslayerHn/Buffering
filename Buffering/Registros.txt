@@ -9,3 +9,4 @@ juancito|escobar|234342|23423|32424332|Femenino|Meztizo|false
 ernesto|la verde|080192845|tuule|2345-1254|Masculino|Meztizo|false
 pedro|alexey|0801-1989-19875|el valle del aguan|2345-2384|Masculino|Meztizo|false
 lucas|ramiro|498371334544|las uvas|2312-19843|Masculino|Mulato|false
+jimy|barrientos|0807-15487-5545|zambrnao F.M|32544874|Sin especificar|Mulato|false
